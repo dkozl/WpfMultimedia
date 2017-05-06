@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMultimediaTest", "WpfMultimediaTest\WpfMultimediaTest.csproj", "{4BC89CE4-2608-482B-B519-7424FECDE999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMultimedia", "WpfMultimedia\WpfMultimedia.csproj", "{3DCD9D4C-CC77-473A-9E58-1FFB1E67C765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVM", "MVVM\MVVM.csproj", "{BAEFC825-1E43-446C-9B9D-5645198A44ED}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs16
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MVVM\\MVVM.csproj
+		SccProjectName1 = MVVM
+		SccLocalPath1 = MVVM
+		SccProjectUniqueName2 = WpfMultimedia\\WpfMultimedia.csproj
+		SccProjectName2 = WpfMultimedia
+		SccLocalPath2 = WpfMultimedia
+		SccProjectUniqueName3 = WpfMultimediaTest\\WpfMultimediaTest.csproj
+		SccProjectName3 = WpfMultimediaTest
+		SccLocalPath3 = WpfMultimediaTest
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BC89CE4-2608-482B-B519-7424FECDE999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BC89CE4-2608-482B-B519-7424FECDE999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BC89CE4-2608-482B-B519-7424FECDE999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BC89CE4-2608-482B-B519-7424FECDE999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DCD9D4C-CC77-473A-9E58-1FFB1E67C765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCD9D4C-CC77-473A-9E58-1FFB1E67C765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCD9D4C-CC77-473A-9E58-1FFB1E67C765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCD9D4C-CC77-473A-9E58-1FFB1E67C765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAEFC825-1E43-446C-9B9D-5645198A44ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAEFC825-1E43-446C-9B9D-5645198A44ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAEFC825-1E43-446C-9B9D-5645198A44ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAEFC825-1E43-446C-9B9D-5645198A44ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
