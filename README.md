@@ -6,11 +6,20 @@ Simply create `VideoCapture` class with selected video input device, optionally 
 
 ```
 using WpfMultimedia;
-using WpfMultimedia.Webcam;
+using WpfMultimedia.Webcam.Business;
+using WpfMultimedia.Webcam.Interfaces;
 
-var _webCam = new VideoCapture(DeviceManager.GetVideoInputDevices().First(), null);
-_webCam.CaptureFrame += OnFrameCaptured;
-_webCam.Start();
+...
+
+var webCam = (new DefaultVideoCaptureFactory()).CreateVideoCapture(
+    DeviceManager.GetVideoInputDevices().First().Name,
+    new DefaultVideoResolutionSelector
+    {
+        MaxWidth = 1600,
+        MinBitCount = 24
+    });
+webCam.CaptureFrame += OnFrameCaptured;
+webCam.Start();
 
 ...
 

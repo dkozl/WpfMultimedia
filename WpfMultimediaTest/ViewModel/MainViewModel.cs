@@ -16,7 +16,13 @@ namespace WpfMultimediaTest.ViewModel
 
         public MainViewModel()
         {
-            _webCam = (new DefaultVideoCaptureFactory()).CreateVideoCapture(DeviceManager.GetVideoInputDevices().First().Name, new DefaultVideoResolutionSelector { MaxWidth = 1600, MinBitCount = 24 });
+            _webCam = (new DefaultVideoCaptureFactory()).CreateVideoCapture(
+                DeviceManager.GetVideoInputDevices().First().Name,
+                new DefaultVideoResolutionSelector
+                {
+                    MaxWidth = 1600,
+                    MinBitCount = 24
+                });
             _webCam.CaptureFrame += OnFrameCaptured;
             UpdateCaptureState(_canCapture);
         }
