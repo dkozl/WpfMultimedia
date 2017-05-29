@@ -16,5 +16,21 @@ namespace MVVM
             var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        protected bool UpdateProperty<T>(string propertyName, T newValue, ref T currentValue, IEqualityComparer<T> equalityComparer)
+        {
+            if (!equalityComparer.Equals(newValue, currentValue))
+            {
+                currentValue = newValue;
+                OnPropertyChanged(propertyName);
+                return true;
+            }
+            return false;
+        }
+
+        protected bool UpdateProperty<T>(string propertyName, T newValue, ref T currentValue)
+        {
+            return UpdateProperty(propertyName, newValue, ref currentValue, EqualityComparer<T>.Default);
+        }
     }
 }

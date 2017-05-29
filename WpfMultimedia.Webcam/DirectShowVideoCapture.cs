@@ -1,30 +1,19 @@
 ﻿using DirectShowLib;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using System.Timers;
 using WpfMultimedia.Webcam.Interfaces;
 
 namespace WpfMultimedia.Webcam
 {
-    public enum CameraStatus
-    {
-        Stop,
-        Pause,
-        Capture
-    }
-
-    public sealed class VideoCapture : ISampleGrabberCB, IDisposable
+    public sealed class DirectShowVideoCapture : ISampleGrabberCB, IVideoCapture
     {
         #region Private static methods
 
@@ -51,11 +40,11 @@ namespace WpfMultimedia.Webcam
 
         private readonly Object _cameraStatusLock = new Object();
 
-        private readonly List<VideoInputResolution> _allResolutions;
+        private readonly List<IVideoResolution> _allResolutions;
 
-        private readonly VideoInputResolution[] _matchingResolutions;
+        private readonly IVideoResolution[] _matchingResolutions;
 
-        private readonly VideoInputResolution _resolution;
+        private readonly IVideoResolution _resolution;
 
         private bool _disposed;
 
@@ -63,7 +52,7 @@ namespace WpfMultimedia.Webcam
 
         #region Constructor
 
-        public VideoCapture(DsDevice device, IVideoInputResolutionSeletor resolutionSelector)
+        public DirectShowVideoCapture(DsDevice device, IVideoResolutionSeletor resolutionSelector)
         {
             if (device == null)
                 throw new ArgumentNullException("device", "Device must not be null");
@@ -95,17 +84,18 @@ namespace WpfMultimedia.Webcam
 
             AMMediaType pmtConfig = null;
 
-            _allResolutions = new List<VideoInputResolution>(capSize);
+            _allResolutions = new List<IVideoResolution>(capSize);
             for (int iFormat = 0; iFormat < capCount; iFormat++)
             {
                 IntPtr ptr = IntPtr.Zero;
 
                 videoStreamConfig.GetStreamCaps(iFormat, out pmtConfig, taskMemPointer);
                 var v = (VideoInfoHeader)Marshal.PtrToStructure(pmtConfig.formatPtr, typeof(VideoInfoHeader));
-                _allResolutions.Add(new VideoInputResolution(v.BmiHeader));
+                var bmiHeader = v.BmiHeader;
+                _allResolutions.Add(new VideoResolution(bmiHeader.Width, bmiHeader.Height, (int)bmiHeader.BitCount));
             }
-            _allResolutions.Sort(new VideoInputResolutionComparer());
-            _matchingResolutions = _allResolutions.Where(r => resolutionSelector == null || resolutionSelector.IsMatch(r)).ToArray();
+            _allResolutions.Sort(new VideoResolutionComparer());
+            _matchingResolutions = _allResolutions.Where(r => resolutionSelector == null || resolutionSelector.IsMatch(r.Width, r.Height, r.BitCount)).ToArray();
             _resolution = _matchingResolutions.Last();
 
             Marshal.FreeCoTaskMem(taskMemPointer);
@@ -151,7 +141,7 @@ namespace WpfMultimedia.Webcam
 
             Marshal.ReleaseComObject(graphBuilder);
 
-            _timer = new System.Timers.Timer(50);
+            _timer = new Timer(50);
             _timer.Elapsed += TimerElapsed;
         }
 
@@ -239,40 +229,9 @@ namespace WpfMultimedia.Webcam
 
         #region Public properties
 
-        public string DeviceName
-        {
-            get { return _deviceName; }
-        }
-
-        public CameraStatus Status
-        {
-            get
-            {
-                lock (_cameraStatusLock)
-                {
-                    return _cameraStatus;
-                }
-            }
-        }
-
-        public VideoInputResolution[] MatchingResolutions
-        {
-            get { return _matchingResolutions; }
-        }
-
-        public VideoInputResolution Resolution
+        public IVideoResolution Resolution
         {
             get { return _resolution; }
-        }
-
-        public int Width
-        {
-            get { return _resolution.Width; }
-        }
-
-        public int Height
-        {
-            get { return _resolution.Height; }
         }
 
         #endregion
@@ -318,29 +277,27 @@ namespace WpfMultimedia.Webcam
 
         #region Public methods
 
-        public bool Start()
+        public CameraStatus Start()
         {
             if (ChangeCameraStatus(CameraStatus.Capture))
             {
                 _mediaControl.Run();
                 _timer.Start();
-                return true;
             }
-            return false;
+            return _cameraStatus;
         }
 
-        public bool Pause()
+        public CameraStatus Pause()
         {
             if (ChangeCameraStatus(CameraStatus.Pause))
             {
                 _timer.Stop();
                 _mediaControl.Pause();
-                return true;
             }
-            return false;
+            return _cameraStatus;
         }
 
-        public bool Stop(bool forceStop)
+        public CameraStatus Stop(bool forceStop)
         {
             if (ChangeCameraStatus(CameraStatus.Stop))
             {
@@ -349,9 +306,8 @@ namespace WpfMultimedia.Webcam
                     _mediaControl.Stop();
                 else
                     _mediaControl.StopWhenReady();
-                return true;
             }
-            return false;
+            return _cameraStatus;
         }
 
         #endregion
@@ -378,4 +334,5 @@ namespace WpfMultimedia.Webcam
 
         #endregion
     }
+
 }

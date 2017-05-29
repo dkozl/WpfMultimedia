@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using WpfMultimedia.Webcam.Interfaces;
 
 namespace WpfMultimedia.Webcam
 {
-    public class VideoInputResolutionComparer:IEqualityComparer<VideoInputResolution>, IComparer<VideoInputResolution>
+    internal class VideoResolutionComparer : IEqualityComparer<IVideoResolution>, IComparer<IVideoResolution>
     {
-        bool IEqualityComparer<VideoInputResolution>.Equals(VideoInputResolution x, VideoInputResolution y)
+        bool IEqualityComparer<IVideoResolution>.Equals(IVideoResolution x, IVideoResolution y)
         {
             if (x != null && y != null)
             {
@@ -19,12 +18,12 @@ namespace WpfMultimedia.Webcam
                 return x == null && y == null;
         }
 
-        int IEqualityComparer<VideoInputResolution>.GetHashCode(VideoInputResolution obj)
+        int IEqualityComparer<IVideoResolution>.GetHashCode(IVideoResolution obj)
         {
             return obj.GetHashCode();
         }
 
-        int IComparer<VideoInputResolution>.Compare(VideoInputResolution x, VideoInputResolution y)
+        int IComparer<IVideoResolution>.Compare(IVideoResolution x, IVideoResolution y)
         {
             if (x != null && y != null)
             {

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Media.Imaging;
 
-namespace WpfMultimedia.Webcam
+namespace WpfMultimedia.Webcam.Interfaces
 {
     public class CaptureFrameEventArgs : EventArgs
     {
@@ -21,19 +18,14 @@ namespace WpfMultimedia.Webcam
             _image = image;
         }
 
-        public string DeviceName
-        {
-            get { return _deviceName; }
-        }
+        public string DeviceName { get { return _deviceName; } }
 
-        public BitmapSource Frame
-        {
-            get { return _image; }
-        }
+        public BitmapSource Frame { get { return _image; } }
 
-        public DateTime TimeStamp
-        {
-            get { return _timeStamp; }
-        }
+        public DateTime TimeStamp { get { return _timeStamp; } }
+
+        public int Width { get { return _image.PixelWidth; } }
+
+        public int Height { get { return _image.PixelHeight; } }
     }
 }

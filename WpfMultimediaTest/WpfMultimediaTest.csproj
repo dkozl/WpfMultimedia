@@ -139,6 +139,14 @@
       <Project>{baefc825-1e43-446c-9b9d-5645198a44ed}</Project>
       <Name>MVVM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WpfMultimedia.Webcam.Business\WpfMultimedia.Webcam.Business.csproj">
+      <Project>{01b035aa-053f-442f-ab3f-90a0625fab2b}</Project>
+      <Name>WpfMultimedia.Webcam.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfMultimedia.Webcam.Interfaces\WpfMultimedia.Webcam.Interfaces.csproj">
+      <Project>{a83536e3-3e74-4959-927e-bc01db845f95}</Project>
+      <Name>WpfMultimedia.Webcam.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfMultimedia\WpfMultimedia.csproj">
       <Project>{3dcd9d4c-cc77-473a-9e58-1ffb1e67c765}</Project>
       <Name>WpfMultimedia</Name>

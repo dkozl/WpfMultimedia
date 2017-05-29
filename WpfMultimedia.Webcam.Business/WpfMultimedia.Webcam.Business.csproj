@@ -1,21 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3DCD9D4C-CC77-473A-9E58-1FFB1E67C765}</ProjectGuid>
+    <ProjectGuid>{01B035AA-053F-442F-AB3F-90A0625FAB2B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WpfMultimedia</RootNamespace>
-    <AssemblyName>WpfMultimedia</AssemblyName>
+    <RootNamespace>WpfMultimedia.Webcam.Business</RootNamespace>
+    <AssemblyName>WpfMultimedia.Webcam.Business</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,31 +30,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DirectShowLib-2005, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\DirectShowLib-2005.dll</HintPath>
+    <Reference Include="DirectShowLib-2005">
+      <HintPath>..\WpfMultimedia\Libraries\DirectShowLib-2005.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeviceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DefaultVideoCaptureFactory.cs" />
+    <Compile Include="DefaultVideoResolutionSelector.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libraries\DirectShowLib-2005.dll" />
+    <ProjectReference Include="..\WpfMultimedia.Webcam.Interfaces\WpfMultimedia.Webcam.Interfaces.csproj">
+      <Project>{a83536e3-3e74-4959-927e-bc01db845f95}</Project>
+      <Name>WpfMultimedia.Webcam.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfMultimedia.Webcam\WpfMultimedia.Webcam.csproj">
+      <Project>{d17bc8bb-d7fa-4302-b2ae-67a33446452e}</Project>
+      <Name>WpfMultimedia.Webcam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfMultimedia\WpfMultimedia.csproj">
+      <Project>{3dcd9d4c-cc77-473a-9e58-1ffb1e67c765}</Project>
+      <Name>WpfMultimedia</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Webcam\" />
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
